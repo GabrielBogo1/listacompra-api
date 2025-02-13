@@ -21,7 +21,7 @@ import com.listadecompras.listacompras.service.productService;
 
 @Controller
 @RequestMapping(value = "api/product")
-@CrossOrigin
+@CrossOrigin("*")
 public class productController {
     
     @Autowired
