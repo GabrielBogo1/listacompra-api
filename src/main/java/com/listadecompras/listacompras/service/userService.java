@@ -21,23 +21,17 @@ public class userService {
 
       private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public String registerUser(user user) {
-        // Verifica se o email já existe no banco
+      public user registerUser(user user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            return "Erro: Email já cadastrado.";
+            throw new RuntimeException("Erro: Email já cadastrado.");
         }
-
-        // Criptografa a senha antes de salvar
+    
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        // Define o username baseado no email
+    
         user.setUsername(user.getEmail());
-
-        // Salva o usuário no banco
-        userRepository.save(user);
-
-        return "Usuário cadastrado com sucesso!";
-    }
+    
+        return userRepository.save(user);
+    }    
 
     public user login(String email, String rawPassword) {
         Optional<user> optionalUser = userRepository.findByEmail(email);

@@ -23,13 +23,12 @@ import com.listadecompras.listacompras.service.productService;
 @RequestMapping(value = "api/product")
 @CrossOrigin("*")
 public class productController {
-    
+
     @Autowired
     productRepository productRepository;
 
     @Autowired
     productService productService;
-
 
     @GetMapping("/{id}")
     public ResponseEntity<product> findByIDPath(@PathVariable("id") final Long id) {
@@ -37,27 +36,23 @@ public class productController {
         return ResponseEntity.ok(product);
     }
 
-      @GetMapping
-    public ResponseEntity<List <product>> listAll() {
+    @GetMapping
+    public ResponseEntity<List<product>> listAll() {
         return ResponseEntity.ok(this.productRepository.findAll());
     }
 
     @PostMapping
-    public product createProduct (@RequestBody final product product) {
-        try {
-            return this.productService.save(product);
-        } catch (DataIntegrityViolationException e) {
-            return null;
-        }
+    public product createProduct(@RequestBody final product product) {
+        return this.productService.save(product);
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> update(@PathVariable("id") final Long id, @RequestBody final product product) {
         try {
-            productService.updateProduct(id,product);
+            productService.updateProduct(id, product);
             return ResponseEntity.ok(HttpStatus.CREATED);
         } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<> (null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 

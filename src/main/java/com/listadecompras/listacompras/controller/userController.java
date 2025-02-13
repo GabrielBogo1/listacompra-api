@@ -15,13 +15,17 @@ import com.listadecompras.listacompras.service.userService;
 @RequestMapping("/users")
 @CrossOrigin("*")
 public class userController {
-     
+
     @Autowired
     userService userService;
-    
-     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody user user) {
-        String response = userService.registerUser(user);
-        return ResponseEntity.ok(response);
+
+    @PostMapping("/register")
+    public ResponseEntity<user> registerUser(@RequestBody user user) {
+        try {
+            user registeredUser = userService.registerUser(user);
+            return ResponseEntity.ok(registeredUser); 
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(409).body(null); 
+        }
     }
 }
