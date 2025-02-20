@@ -17,5 +17,8 @@ public class securityConfig {
             .csrf(AbstractHttpConfigurer::disable); // Desativa CSRF (se necessário para testes)
         return http.build();
     }
+
+
+    
 }
 
