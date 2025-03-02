@@ -21,7 +21,7 @@ import com.listadecompras.listacompras.repository.ProductRepository;
 import com.listadecompras.listacompras.service.ProductService;
 
 @Controller
-@RequestMapping(value = "api/product")
+@RequestMapping(value = "/api/product")
 @CrossOrigin("*")
 public class ProductController {
 
