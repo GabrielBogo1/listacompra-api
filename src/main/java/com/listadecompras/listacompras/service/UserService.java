@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.listadecompras.listacompras.entity.user;
-import com.listadecompras.listacompras.repository.userRepository;
+import com.listadecompras.listacompras.entity.User;
+import com.listadecompras.listacompras.repository.UserRepository;
 
 
 @Service
-public class userService {
+public class UserService {
 
     @Autowired
-    userRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
-    passwordService passwordService;
+    PasswordService passwordService;
 
       private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-      public user registerUser(user user) {
+      public User registerUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("Erro: Email já cadastrado.");
         }
@@ -33,11 +33,11 @@ public class userService {
         return userRepository.save(user);
     }    
 
-    public user login(String email, String rawPassword) {
-        Optional<user> optionalUser = userRepository.findByEmail(email);
+    public User login(String email, String rawPassword) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
     
         if (optionalUser.isPresent()) {
-            user user = optionalUser.get(); 
+            User user = optionalUser.get();
             
             if (passwordService.matches(rawPassword, user.getPassword())) {
                 return user; 

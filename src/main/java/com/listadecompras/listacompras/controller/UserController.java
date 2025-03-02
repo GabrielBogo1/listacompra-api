@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.listadecompras.listacompras.entity.user;
-import com.listadecompras.listacompras.service.userService;
+import com.listadecompras.listacompras.entity.User;
+import com.listadecompras.listacompras.service.UserService;
 
 @RestController
 @RequestMapping("/users")
 @CrossOrigin("*")
-public class userController {
+public class UserController {
 
     @Autowired
-    userService userService;
+    UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<user> registerUser(@RequestBody user user) {
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
         try {
-            user registeredUser = userService.registerUser(user);
+            User registeredUser = userService.registerUser(user);
             return ResponseEntity.ok(registeredUser); 
         } catch (RuntimeException e) {
             return ResponseEntity.status(409).body(null); 

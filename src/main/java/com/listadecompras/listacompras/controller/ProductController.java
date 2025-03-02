@@ -15,41 +15,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.listadecompras.listacompras.entity.product;
-import com.listadecompras.listacompras.repository.productRepository;
-import com.listadecompras.listacompras.service.productService;
+import com.listadecompras.listacompras.entity.Product;
+import com.listadecompras.listacompras.repository.ProductRepository;
+import com.listadecompras.listacompras.service.ProductService;
 
 @Controller
 @RequestMapping(value = "api/product")
 @CrossOrigin("*")
-public class productController {
+public class ProductController {
 
     @Autowired
-    productRepository productRepository;
+    ProductRepository productRepository;
 
     @Autowired
-    productService productService;
+    ProductService productService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<product> findByIDPath(@PathVariable("id") final Long id) {
-        final product product = this.productRepository.findById(id).orElse(null);
+    public ResponseEntity<Product> findByIDPath(@PathVariable("id") final Long id) {
+        final Product product = this.productRepository.findById(id).orElse(null);
         return ResponseEntity.ok(product);
     }
 
     @GetMapping
-    public ResponseEntity<List<product>> listAll() {
+    public ResponseEntity<List<Product>> listAll() {
         return ResponseEntity.ok(this.productRepository.findAll());
     }
 
     @PostMapping
-    public product createProduct(@RequestBody final product product) {
-        return this.productService.save(product);
+    public ResponseEntity <HttpStatus> createProduct(@RequestBody final Product product) {
+        try {
+            this.productService.save(product);
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        } catch (DataIntegrityViolationException e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@PathVariable("id") final Long id, @RequestBody final product product) {
+    public ResponseEntity<HttpStatus> update(@PathVariable("id") final Long id, @RequestBody final Product product) {
         try {
             product.setId(id);
             productService.updateProduct(id, product);
