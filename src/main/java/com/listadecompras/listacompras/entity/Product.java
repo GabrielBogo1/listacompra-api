@@ -1,12 +1,14 @@
 package com.listadecompras.listacompras.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
 @Table
+@AllArgsConstructor
 public class Product {
    
     @Id
@@ -19,4 +21,7 @@ public class Product {
 
     @Column(name = "observacao_produto")
     private String productObservation;
+
+    @Column(name = "preco_produto", nullable = false)
+    private Double price;
 }
