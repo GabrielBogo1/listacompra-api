@@ -1,0 +1,39 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-sm p-4" style="width: 400px">
+    <h2 class="text-center mb-4">Adicionar Item</h2>
+    <form (ngSubmit)="adicionarItem()">
+      <div class="mb-3">
+        <label for="productName" class="form-label">Nome do Item</label>
+        <input
+          type="text"
+          id="productName"
+          name="productName"
+          class="form-control"
+          placeholder="Digite o nome do item"
+          [(ngModel)]="productName"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="productObservation" class="form-label">Observações:</label>
+        <input
+          type="text"
+          id="productObservation"
+          name="productObservation"
+          class="form-control"
+          placeholder="Digite a observacao"
+          [(ngModel)]="productObservation"
+          required
+        />
+      </div>
+
+      <button type="submit" class="mt-3 btn btn-primary w-100">
+        Adicionar
+      </button>
+      <button class="mt-3 btn btn-secondary w-100" (click)="voltar()">
+        Voltar
+      </button>
+    </form>
+  </div>
+</div>
