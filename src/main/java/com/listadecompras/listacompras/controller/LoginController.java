@@ -5,6 +5,7 @@ import com.listadecompras.listacompras.dto.LoginResponseDTO;
 import com.listadecompras.listacompras.dto.RegisterDTO;
 import com.listadecompras.listacompras.repository.UserRepository;
 import com.listadecompras.listacompras.service.TokenService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ import com.listadecompras.listacompras.entity.User;
 @RequestMapping("/auth")
 @CrossOrigin("*")
 public class LoginController {
-
+//testando
     @Autowired
     private UserRepository userRepository;
 
