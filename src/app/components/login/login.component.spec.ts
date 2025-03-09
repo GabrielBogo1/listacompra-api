@@ -4,6 +4,9 @@ import { LoginComponent } from './login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -11,7 +14,8 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent, HttpClientModule, ActivatedRoute]
+      imports: [LoginComponent, HttpClientModule, RouterTestingModule],
+      providers: [{ provide: AuthService, useValue: { login: jasmine.createSpy('login') } }]
     })
     .compileComponents();
 
