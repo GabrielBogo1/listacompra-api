@@ -31,7 +31,7 @@ jobs:
 
       - name: Run Angular tests
         run: |
-          npm run test -- --watch=false --browsers=ChromeHeadlessCI
+          npm run test -- --watch=false --browsers=ChromeHeadless
         env:
           CI: true
 
