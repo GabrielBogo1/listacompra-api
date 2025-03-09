@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditarItemComponent } from './editar-item.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('EditarItemComponent', () => {
   let component: EditarItemComponent;
@@ -8,7 +9,7 @@ describe('EditarItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditarItemComponent]
+      imports: [EditarItemComponent, HttpClientModule]
     })
     .compileComponents();
 

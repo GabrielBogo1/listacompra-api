@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CadastroComponent } from './cadastro.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../auth/auth.service';
 
 describe('CadastroComponent', () => {
   let component: CadastroComponent;
@@ -8,7 +10,8 @@ describe('CadastroComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CadastroComponent]
+      
+      imports: [HttpClientModule, CadastroComponent, AuthService]
     })
     .compileComponents();
 
