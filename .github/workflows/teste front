@@ -1,0 +1,36 @@
+name: Angular CI
+
+on:
+  push:
+    branches:
+      - front-end
+  pull_request:
+    branches:
+      - front-end
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        npm install
+
+    - name: Run Angular tests
+      run: |
+        npm run test -- --watch=false --browsers=ChromeHeadlessCI
+      env:
+        CI: true
+
+    - name: Build Angular project
+      run: |
+        npm run build --prod
