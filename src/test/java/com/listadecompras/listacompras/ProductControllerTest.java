@@ -41,7 +41,7 @@ public class ProductControllerTest {
 
     @Test
     void testCreateProductSuccess() throws Exception {
-        Product product = new Product(null, "New Product","Obs", 150.0);
+        Product product = new Product(null, "New Product","Obs", 150.0, "urlTest");
         when(productService.save(any(Product.class))).thenReturn(product);
 
         mockMvc.perform(post("/api/product")
@@ -52,7 +52,7 @@ public class ProductControllerTest {
 
     @Test
     void testCreateProductFailure() throws Exception {
-        Product product = new Product(null, "New Product", "Obs",150.0);
+        Product product = new Product(null, "New Product", "Obs",150.0, "urlTest");
         when(productService.save(any(Product.class)))
                 .thenThrow(new DataIntegrityViolationException("Data Integrity Violation"));
 
@@ -64,7 +64,7 @@ public class ProductControllerTest {
 
     @Test
     void testFindProductById() throws Exception {
-        Product product = new Product(1L, "Product Name", "Obs",100.0);
+        Product product = new Product(1L, "Product Name", "Obs",100.0, "urlTest");
         when(productRepository.findById(1L)).thenReturn(java.util.Optional.of(product));
 
         mockMvc.perform(get("/api/product/1"))
