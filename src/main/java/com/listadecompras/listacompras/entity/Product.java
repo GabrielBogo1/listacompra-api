@@ -24,4 +24,7 @@ public class Product {
 
     @Column(name = "preco_produto", nullable = false)
     private Double price;
+
+    @Column(name = "imagem_produto")
+    private String imageUrl;
 }
