@@ -6,6 +6,7 @@ import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 
 
 describe('LoginComponent', () => {
@@ -14,8 +15,12 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent, HttpClientModule, RouterTestingModule],
-      providers: [{ provide: AuthService, useValue: { login: jasmine.createSpy('login') } }]
+      imports: [HttpClientModule],
+      declarations: [LoginComponent],
+    providers: [
+      { provide: ActivatedRoute, useValue: { params: of({}) } }, // Mock do ActivatedRoute
+      { provide: AuthService, useValue: { login: jasmine.createSpy('login') } } // Mock do AuthService
+    ]
     })
     .compileComponents();
 
