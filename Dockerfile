@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN apt-get update && apt-get install -y google-chrome-stable
+
 RUN npm run build --prod
 
 FROM nginx:stable
