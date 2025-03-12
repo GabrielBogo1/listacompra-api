@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ProdutosService } from '../../services/produtos.service';
 import { Item } from '../../models/item/item';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-listadecompras',
@@ -16,7 +17,7 @@ import { Item } from '../../models/item/item';
 })
 export class ListadecomprasComponent implements OnInit {
   items: Item[] = [];
-
+  authService = inject(AuthService);
   constructor(private router: Router, private meuService: ProdutosService) {}
 
   ngOnInit(): void {
@@ -26,6 +27,9 @@ export class ListadecomprasComponent implements OnInit {
   carregarItens(): void {
     this.meuService.getItens().subscribe(
       (data: Item[]) => {
+        for (let item of data) {
+          item.productValue = 25;
+        }
         this.items = data;
       },
       (error) => {

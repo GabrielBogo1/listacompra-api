@@ -77,8 +77,10 @@ export class AuthService {
   }
 
   hasPermission(role: string) {
-    let user = this.jwtDecode() as User;
-    if (user.role == role)
+    
+    let user = this.jwtDecode() as any;
+    console.log(user.roles[0]);
+    if (user.roles[0] == role)
       return true;
     else
       return false;

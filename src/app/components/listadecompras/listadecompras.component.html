@@ -4,6 +4,7 @@
             <h1 class="text-center ">Lista de Compras</h1>
         </div>
     </div>
+    <!-- <div *ngIf="authService.hasPermission('ROLE_USER')">teste</div> -->
     <div class="row">
         <div class="col">
             <table class="table table-bordered table-striped">
@@ -29,7 +30,15 @@
             </table>
             <div class="d-flex justify-content-center gap-2">
                 <button class="btn btn-success" [routerLink]="['/adicionar-item']">Adicionar item</button>
-            </div>
+                <button
+                  class="btn btn-success"
+                  [routerLink]="['/checkout']"
+                  [state]="{ items: items }"
+                  [disabled]="!items || items.length === 0"
+                >
+                  Finalizar Compra
+                </button>
+              </div>
         </div>
     </div>
 </div>

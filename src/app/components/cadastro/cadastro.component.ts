@@ -23,7 +23,7 @@ export class CadastroComponent {
     this.cadastroForm = this.fb.group(
       {
         username: ['', [Validators.required, Validators.minLength(3)]],
-        role: [UserRole.USER],
+        role: [UserRole.ADMIN],
         email: ['', [Validators.required, Validators.email]],
         confirmEmail: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
@@ -59,6 +59,7 @@ export class CadastroComponent {
     const user = this.cadastroForm.value;
     this.authService.register(user).subscribe({
       next: (msg) => {
+        console.log(msg);
         Swal.fire({
           title: "Cadastro efetuado com sucesso!",
           icon: 'success',

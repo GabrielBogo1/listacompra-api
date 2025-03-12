@@ -16,11 +16,12 @@ export class ModaladicionaritemComponent {
 
   productName = '';
   productObservation = '';
+  productValue = '25';
 
   constructor(private router: Router, private produtosService: ProdutosService) { }
 
   adicionarItem() {
-    const newItem: Item = { id: '', productName: this.productName, productObservation: this.productObservation };
+    const newItem: Item = { id: '', productName: this.productName, productObservation: this.productObservation, productValue: 25 };
     this.produtosService.criarItem(newItem).subscribe(
       () => {
         this.router.navigate(['/listagem']);

@@ -13,7 +13,7 @@ import { Item } from '../models/item/item';
   styleUrls: ['./editar-item.component.css']
 })
 export class EditarItemComponent implements OnInit {
-  item: Item = { id: '', productName: '', productObservation: '' };
+  item: Item = { id: '', productName: '', productObservation: '', productValue: 25 };
 
   constructor(
     private route: ActivatedRoute,
