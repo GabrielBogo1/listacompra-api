@@ -15,6 +15,9 @@ import { Item } from '../models/item/item';
 export class EditarItemComponent implements OnInit {
   item: Item = { id: '', productName: '', productObservation: '', productValue: 25 };
 
+
+
+  // teste
   constructor(
     private route: ActivatedRoute,
     private router: Router,
