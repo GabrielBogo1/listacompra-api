@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user/user';
 import Swal from 'sweetalert2';
 import { environment } from '../../enviroments/enviroment.dev';
+import { UserRole } from '../../enum/UserRole.Enum';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import { environment } from '../../enviroments/enviroment.dev';
 })
 
 export class LoginComponent {
-  login = new User(0, "", "USER", "", null, null);
+  login = new User(0, "", UserRole.USER, "", null, null);
   router = inject(Router);
   authService = inject(AuthService);
 
