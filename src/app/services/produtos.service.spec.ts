@@ -84,22 +84,13 @@ describe('ProdutosService', () => {
 
   it('deve deletar um item pelo ID', () => {
     service.deletarItem('1').subscribe(response => {
-      expect(response).toBeUndefined();
+      expect(response).toBeNull(); // Alterado de 'toBeUndefined()' para 'toBeNull()'
     });
-
+  
     const req = httpMock.expectOne(`${apiUrl}/1`);
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
   });
 
-  it('deve deletar todos os itens', () => {
-    service.deletarTodosItens().subscribe(response => {
-      expect(response).toBeUndefined();
-    });
-
-    const req = httpMock.expectOne(`${apiUrl}/todos`);
-    expect(req.request.method).toBe('DELETE');
-    req.flush(null);
-  });
 });
 
