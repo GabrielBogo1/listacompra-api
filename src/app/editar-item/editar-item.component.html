@@ -1,0 +1,39 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-sm p-4" style="width: 400px">
+      <h2 class="text-center mb-4">Editar Item</h2>
+      <form (ngSubmit)="atualizarItem()">
+        <div class="mb-3">
+          <label for="productName" class="form-label">Nome do Item</label>
+          <input
+            type="text"
+            id="productName"
+            name="productName"
+            class="form-control"
+            placeholder="Digite o nome do item"
+            [(ngModel)]="item.productName"
+            required
+          />
+        </div>
+  
+        <div class="mb-3">
+          <label for="productObservation" class="form-label">Observação</label>
+          <input
+            type="text"
+            id="productObservation"
+            name="productObservation"
+            class="form-control"
+            placeholder="Digite a observação"
+            [(ngModel)]="item.productObservation"
+            required
+          />
+        </div>
+  
+        <button type="submit" class="mt-3 btn btn-primary w-100">
+          Atualizar
+        </button>
+      </form>
+      <button class="mt-3 btn btn-secondary w-100" (click)="voltar()">
+        Voltar
+      </button>
+    </div>
+  </div>
