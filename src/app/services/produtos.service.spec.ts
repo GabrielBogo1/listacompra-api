@@ -30,8 +30,8 @@ describe('ProdutosService', () => {
 
   it('deve retornar uma lista de itens', () => {
     const mockItems: Item[] = [
-      { id: '1', productName: 'Produto 1', productObservation: 'tst' },
-      { id: '2', productName: 'Produto 2', productObservation: 'tst' }
+      { id: '1', productName: 'Produto 1', productObservation: 'tst', productValue: 25 },
+      { id: '2', productName: 'Produto 2', productObservation: 'tst',productValue: 25 }
     ];
 
     service.getItens().subscribe(items => {
@@ -45,7 +45,7 @@ describe('ProdutosService', () => {
   });
 
   it('deve retornar um item pelo ID', () => {
-    const mockItem: Item = { id: '1', productName: 'Produto 1', productObservation: "tst" };
+    const mockItem: Item = { id: '1', productName: 'Produto 1', productObservation: "tst", productValue: 25 };
 
     service.getItemById('1').subscribe(item => {
       expect(item).toEqual(mockItem);
@@ -57,7 +57,7 @@ describe('ProdutosService', () => {
   });
 
   it('deve criar um novo item', () => {
-    const newItem: Item = { id: '3', productName: 'Produto 3', productObservation: 'tst' };
+    const newItem: Item = { id: '3', productName: 'Produto 3', productObservation: 'tst', productValue: 25 };
 
     service.criarItem(newItem).subscribe(item => {
       expect(item).toEqual(newItem);
@@ -70,7 +70,7 @@ describe('ProdutosService', () => {
   });
 
   it('deve atualizar um item existente', () => {
-    const updatedItem: Item = { id: '1', productName: 'Produto Atualizado', productObservation: 'tst' };
+    const updatedItem: Item = { id: '1', productName: 'Produto Atualizado', productObservation: 'tst', productValue: 25 };
 
     service.atualizarItem('1', updatedItem).subscribe(item => {
       expect(item).toEqual(updatedItem);
