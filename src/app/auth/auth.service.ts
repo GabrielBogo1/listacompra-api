@@ -4,6 +4,8 @@ import { User } from '../models/user/user';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../enviroments/enviroment.dev';
+import { jwtDecode, JwtPayload } from "jwt-decode";
+import { Login } from './login';
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +14,58 @@ import { environment } from '../enviroments/enviroment.dev';
 export class AuthService {
 
   http = inject(HttpClient);
-  APIAuth = environment.SERVIDOR + "/auth";
-  APIUser = environment.SERVIDOR + "/users";
+  API = environment.SERVIDOR + "/auth";
 
   constructor() { }
 
   login(user: User): Observable<User | null> {
-    let foundUser = this.http.post<User | null>(`${this.APIAuth}/login`, user, {
+    let foundUser = this.http.post<User | null>(`${this.API}/login`, user, {
       headers: { 'Content-Type': 'application/json' }
     });
     
     return foundUser
   }
 
-  register(user: User): Observable<User> {
-    return this.http.post<User>(`${this.APIUser}/register`, user, {
-      headers: { 'Content-Type': 'application/json' }
+  logar(login: User): Observable<string> {
+    return this.http.post<string>(`${this.API}/login`, login, {
+      headers: { 'Content-Type': 'application/json' },
+      responseType: 'text' as 'json'
     });
+  }
+
+  register(user: User): Observable<User> {
+    console.log(user);
+    return this.http.post<User>(`${this.API}/register`, user, {
+      headers: { 'Content-Type': 'application/json' },
+      responseType: 'text' as 'json'
+    });
+  }
+
+  addToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  removerToken() {
+    localStorage.removeItem('token');
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  jwtDecode() {
+    let token = this.getToken();
+    if (token) {
+      return jwtDecode<JwtPayload>(token);
+    }
+    return "";
+  }
+
+  hasPermission(role: string) {
+    let user = this.jwtDecode() as User;
+    if (user.role == role)
+      return true;
+    else
+      return false;
   }
 }

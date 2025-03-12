@@ -1,7 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="card shadow-sm p-4" style="width: 350px">
     <h2 class="text-center mb-4">Login</h2>
-    <form (ngSubmit)="logar()">
+    <form (ngSubmit)="autenticate()">
       <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
         <input
@@ -10,7 +10,7 @@
           name="email"
           class="form-control"
           placeholder="Digite seu e-mail"
-          (keyup.enter)="logar()"
+          (keyup.enter)="autenticate()"
           [(ngModel)]="login.email"
           required
         />
@@ -24,7 +24,7 @@
           name="password"
           class="form-control"
           placeholder="Digite sua senha"
-          (keyup.enter)="logar()"
+          (keyup.enter)="autenticate()"
           [(ngModel)]="login.password"
           required
         />

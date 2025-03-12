@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import { UserRole } from '../../enum/UserRole.Enum';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,6 +23,7 @@ export class CadastroComponent {
     this.cadastroForm = this.fb.group(
       {
         username: ['', [Validators.required, Validators.minLength(3)]],
+        role: [UserRole.USER],
         email: ['', [Validators.required, Validators.email]],
         confirmEmail: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],

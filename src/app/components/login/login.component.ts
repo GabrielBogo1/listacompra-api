@@ -15,38 +15,54 @@ import { environment } from '../../enviroments/enviroment.dev';
 })
 
 export class LoginComponent {
-  login = new User(0, "", "", null, null);
+  login = new User(0, "", "USER", "", null, null);
   router = inject(Router);
   authService = inject(AuthService);
 
   constructor(){
   }
 
-  logar() {
-    if(this.login.email == environment.DEV_EMAIL && this.login.password == environment.DEV_MASTERKEY) {
-      this.router.navigate(['/listagem'], {state: { user: environment.DEV_USER}});
-    } else {
-      this.authService.login(this.login).subscribe({
-        next: foundUser => { 
-          if(foundUser) {
-            this.router.navigate(['/listagem'], {state: { user: foundUser}});
-          } else {
-            Swal.fire({
-              title: "Credenciais inválidas!",
-              icon: 'warning',
-              confirmButtonText: 'Ok'
-            });
-          }
-        },
-        error: erro => { 
-          Swal.fire({
-            title: erro.error ? erro.error.toString()  : erro.message.toString(),
-            icon: 'error',
-            confirmButtonText: 'Ok'
-          });
-          console.error(erro);
-        }
-      });
-    }
+  // logar() {
+  //   if(this.login.email == environment.DEV_EMAIL && this.login.password == environment.DEV_MASTERKEY) {
+  //     this.router.navigate(['/listagem'], {state: { user: environment.DEV_USER}});
+  //   } else {
+  //     this.authService.login(this.login).subscribe({
+  //       next: foundUser => { 
+  //         if(foundUser) {
+  //           this.router.navigate(['/listagem'], {state: { user: foundUser}});
+  //         } else {
+  //           Swal.fire({
+  //             title: "Credenciais inválidas!",
+  //             icon: 'warning',
+  //             confirmButtonText: 'Ok'
+  //           });
+  //         }
+  //       },
+  //       error: erro => { 
+  //         Swal.fire({
+  //           title: erro.error ? erro.error.toString()  : erro.message.toString(),
+  //           icon: 'error',
+  //           confirmButtonText: 'Ok'
+  //         });
+  //         console.error(erro);
+  //       }
+  //     });
+  //   }
+  // }
+
+  autenticate() {
+    this.authService.logar(this.login).subscribe({
+      next: token => { 
+        if(token)
+          this.authService.addToken(token); 
+
+        this.router.navigate(['/listagem']);
+      },
+      error: erro => { // QUANDO DÁ ERRO
+        alert('Ocorreu um erro!');
+        console.error("! ERRO !");
+        console.error(erro);
+      }
+    });
   }
 }

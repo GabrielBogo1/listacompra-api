@@ -7,7 +7,8 @@ import { EditarItemComponent } from './editar-item/editar-item.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 
 export const routes: Routes = [
-    { path: '', component: LoginComponent },
+    { path: "", redirectTo: "login", pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
     { path: 'cadastro', component: CadastroComponent },
     { path: 'listagem', component: ListadecomprasComponent },
     { path: 'adicionar-item', component: ModaladicionaritemComponent },
