@@ -12,7 +12,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "api/transaction")
-@CrossOrigin("*")
 public class TransactionController {
 
     @Autowired

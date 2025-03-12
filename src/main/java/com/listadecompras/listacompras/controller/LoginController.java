@@ -4,6 +4,7 @@ import com.listadecompras.listacompras.dto.AuthenticationDTO;
 import com.listadecompras.listacompras.dto.LoginResponseDTO;
 import com.listadecompras.listacompras.dto.RegisterDTO;
 import com.listadecompras.listacompras.repository.UserRepository;
+import com.listadecompras.listacompras.service.AuthorizationService;
 import com.listadecompras.listacompras.service.TokenService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,13 @@ import com.listadecompras.listacompras.entity.User;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
 public class LoginController {
-//testando
+	
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private AuthorizationService authorizationService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -50,7 +53,7 @@ public class LoginController {
 
     @PostMapping ("/register")
     public ResponseEntity register (@RequestBody RegisterDTO registerDTO){
-       if (this.userRepository.findByEmail(registerDTO.email())!= null) return ResponseEntity.badRequest().build();
+       if (this.authorizationService.loadUserByUsername(registerDTO.email())!= null) return ResponseEntity.badRequest().build();
 
        String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.password());
        User newUser = new User(registerDTO.username(), registerDTO.email(), encryptedPassword, registerDTO.role());
