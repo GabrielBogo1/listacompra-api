@@ -43,11 +43,7 @@ public class ProductControllerTest {
 
     @Test
     void testCreateProductSuccess() throws Exception {
-<<<<<<< HEAD
         Product product = new Product(null, "New Product","Obs");
-=======
-        Product product = new Product(null, "New Product","Obs", 150.0, "urlTest");
->>>>>>> b2ae9a5abf4f3b88e6a6d88a1fe44eee96721598
         when(productService.save(any(Product.class))).thenReturn(product);
 
         mockMvc.perform(post("/api/product")
@@ -58,11 +54,7 @@ public class ProductControllerTest {
 
     @Test
     void testCreateProductFailure() throws Exception {
-<<<<<<< HEAD
         Product product = new Product(null, "New Product", "Obs");
-=======
-        Product product = new Product(null, "New Product", "Obs",150.0, "urlTest");
->>>>>>> b2ae9a5abf4f3b88e6a6d88a1fe44eee96721598
         when(productService.save(any(Product.class)))
                 .thenThrow(new DataIntegrityViolationException("Data Integrity Violation"));
 
@@ -74,22 +66,13 @@ public class ProductControllerTest {
 
     @Test
     void testFindProductById() throws Exception {
-<<<<<<< HEAD
         Product product = new Product(1L, "Product Name", "Obs");
-=======
-        Product product = new Product(1L, "Product Name", "Obs",100.0, "urlTest");
->>>>>>> b2ae9a5abf4f3b88e6a6d88a1fe44eee96721598
         when(productRepository.findById(1L)).thenReturn(java.util.Optional.of(product));
 
         mockMvc.perform(get("/api/product/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.productName").value("Product Name"))
-<<<<<<< HEAD
                 .andExpect(jsonPath("$.productObservation").value("Obs"));
-=======
-                .andExpect(jsonPath("$.productObservation").value("Obs"))
-                .andExpect(jsonPath("$.price").value(100.0));
->>>>>>> b2ae9a5abf4f3b88e6a6d88a1fe44eee96721598
     }
 
 }
