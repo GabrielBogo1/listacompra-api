@@ -28,8 +28,8 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
     
-    @Autowired
-    private AuthorizationService authorizationService;
+    //@Autowired
+    //private AuthorizationService authorizationService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -53,7 +53,7 @@ public class LoginController {
 
     @PostMapping ("/register")
     public ResponseEntity register (@RequestBody RegisterDTO registerDTO){
-       if (this.authorizationService.loadUserByUsername(registerDTO.email())!= null) return ResponseEntity.badRequest().build();
+       if (this.userRepository.findByEmail(registerDTO.email())!= null) return ResponseEntity.badRequest().build();
 
        String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.password());
        User newUser = new User(registerDTO.username(), registerDTO.email(), encryptedPassword, registerDTO.role());
