@@ -1,11 +1,8 @@
 package com.listadecompras.listacompras.controller;
 
 import com.listadecompras.listacompras.entity.Payment;
-import com.listadecompras.listacompras.entity.Product;
 import com.listadecompras.listacompras.repository.PaymentRepository;
-import com.listadecompras.listacompras.repository.ProductRepository;
 import com.listadecompras.listacompras.service.PaymentService;
-import com.listadecompras.listacompras.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

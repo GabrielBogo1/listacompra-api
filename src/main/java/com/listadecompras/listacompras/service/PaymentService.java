@@ -1,9 +1,7 @@
 package com.listadecompras.listacompras.service;
 
 import com.listadecompras.listacompras.entity.Payment;
-import com.listadecompras.listacompras.entity.Product;
 import com.listadecompras.listacompras.repository.PaymentRepository;
-import com.listadecompras.listacompras.repository.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
