@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from '../../enviroments/enviroment.dev';
 
+//teste
+
 @Injectable({
   providedIn: 'root'
 })
