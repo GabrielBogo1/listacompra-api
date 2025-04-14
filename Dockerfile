@@ -1,9 +1,8 @@
 FROM nginx:stable
 
-
-COPY --from=build /app/dist/front-projetoum /usr/share/nginx/html
-COPY src/env.js /usr/share/nginx/html/assets/env.js
+COPY front-projetoum /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY src/env.js /usr/share/nginx/html/assets/env.js
 
 EXPOSE 80 443
 
