@@ -4,11 +4,13 @@ import { ProdutosService } from './produtos.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Item } from '../models/item/item';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { environment } from '../enviroments/enviroment.dev';
+
 
 describe('ProdutosService', () => {
   let service: ProdutosService;
   let httpMock: HttpTestingController;
-  const apiUrl = 'http://localhost:8080/api/product';
+  const apiUrl = `${environment.apiUrl}/product`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

@@ -65,7 +65,7 @@ export class CadastroComponent {
           icon: 'success',
           confirmButtonText: 'Ok',
         }).then(() => {
-          this.router.navigate(['/listagem'], { state: { user } });
+          this.router.navigate(['/login'], { state: { user } });
         });
       },
       error: (erro) => {
