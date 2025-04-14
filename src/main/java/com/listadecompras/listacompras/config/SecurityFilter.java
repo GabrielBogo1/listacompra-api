@@ -33,18 +33,20 @@ public class SecurityFilter extends OncePerRequestFilter {
 		String token = recuperarToken(request);
 		if (token != null) {
 			String email = tokenService.validateToken(token);
-
-			UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-
-			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-					userDetails, null, userDetails.getAuthorities()
-			);
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+			if (email != null && !email.isEmpty()) {
+				System.out.println("Email extraído do token: " + email);
+				UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+		
+				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+						userDetails, null, userDetails.getAuthorities()
+				);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			} else {
+				System.out.println("Token inválido ou sem email.");
+			}
+		  	}
 		}
-
-		filterChain.doFilter(request, response);
-	}
-
 	private String recuperarToken(HttpServletRequest request) {
 		String authorizationHeader = request.getHeader("Authorization");
 		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {

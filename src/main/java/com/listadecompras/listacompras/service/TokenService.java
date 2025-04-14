@@ -35,7 +35,7 @@ public class TokenService {
     }
 
     public String validateToken(String token){
-        try{
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .withIssuer("product-api")
@@ -43,11 +43,12 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception){
-            return "";
+            System.out.println("Erro ao validar token: " + exception.getMessage());
+            return null;
         }
     }
 
     private Instant genExperationDate(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
     }
 }

@@ -5,6 +5,9 @@ import com.listadecompras.listacompras.dto.LoginResponseDTO;
 import com.listadecompras.listacompras.dto.RegisterDTO;
 import com.listadecompras.listacompras.repository.UserRepository;
 import com.listadecompras.listacompras.service.TokenService;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,7 @@ import com.listadecompras.listacompras.entity.User;
 
 @RestController
 @RequestMapping("/auth")
+@Transactional
 public class LoginController {
 	
     @Autowired

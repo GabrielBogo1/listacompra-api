@@ -1,41 +1,64 @@
-name: Testes Automatizados Java
+name: CI/CD para Spring Boot com Docker
 
-on: [push, pull_request]
+on:
+  push: 
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build_and_test:
+    runs-on: self-hosted 
+
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: gwijkuop78-
+          POSTGRES_DB: banco_mensal
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
-      - name: Checkout do código
+      - name: Clonar o repositório
         uses: actions/checkout@v3
 
-      - name: Configurar JDK 21
+      - name: Configurar o JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '21'
           cache: maven
 
-      - name: Compilar e rodar testes
-        run: mvn clean test
+      - name: Executar testes
+        run: mvn test -B
 
-      - name: Build Docker Image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          dockerfile: Dockerfile
-          push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/listacompras:latest
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: Push to Docker Hub
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          dockerfile: Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/listacompras:latest
+  deploy:
+    needs: build_and_test
+    runs-on: self-hosted 
+
+    steps:
+      - name: Clonar o repositório
+        uses: actions/checkout@v3
+
+      - name: Build e Run do Docker localmente
+        run: |
+          CONTAINER_NAME=springboot-backend
+
+          echo "Parando e removendo container antigo (se existir)..."
+          docker stop $CONTAINER_NAME || true
+          docker rm $CONTAINER_NAME || true
+
+          echo "Buildando a imagem Docker..."
+          docker build --no-cache -t $CONTAINER_NAME .
+
+          echo "Iniciando container..."
+          docker run -d -p 8080:8080 --env-file .env --name $CONTAINER_NAME
