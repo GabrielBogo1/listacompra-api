@@ -43,13 +43,17 @@ jobs:
         run: |
             ls -la dist
             ls -la dist/front-projetoum
-            
+
       - name: Configurar chave SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.GCP_SSH_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.GCP_VM_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Criar diretório na VM (se necessário)
+        run: |
+          ssh ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }} "mkdir -p /home/${{ secrets.GCP_VM_USER }}/frontend"
 
       - name: Enviar arquivos para a VM
         run: |
