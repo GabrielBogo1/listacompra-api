@@ -37,8 +37,13 @@ jobs:
 
       - name: Build Angular project
         run: |
-          npm run build --prod
+            npm run build -- --configuration=production
 
+      - name: Verificar arquivos gerados
+        run: |
+            ls -la dist
+            ls -la dist/front-projetoum
+            
       - name: Configurar chave SSH
         run: |
           mkdir -p ~/.ssh
