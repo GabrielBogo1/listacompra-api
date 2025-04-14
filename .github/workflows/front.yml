@@ -58,8 +58,8 @@ jobs:
       - name: Enviar arquivos para a VM
         run: |
           scp -r dist/front-projetoum ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }}:/home/${{ secrets.GCP_VM_USER }}/frontend
-          scp Dockerfile default.conf package.json package-lock.json ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }}:/home/${{ secrets.GCP_VM_USER }}/frontend/
-          
+          scp Dockerfile nginx.conf package.json package-lock.json ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }}:/home/${{ secrets.GCP_VM_USER }}/frontend/
+
       - name: Build e restart do container na VM
         run: |
           ssh ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }} << 'EOF'
