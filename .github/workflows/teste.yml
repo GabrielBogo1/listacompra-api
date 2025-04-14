@@ -58,4 +58,4 @@ jobs:
           docker build --no-cache -t $CONTAINER_NAME .
 
           echo "Iniciando container..."
-          docker run -d -p 8080:8080 --env-file .env --name $CONTAINER_NAME
+          docker run -d -p 8080:8080 --env-file .env --name $CONTAINER_NAME $CONTAINER_NAME
