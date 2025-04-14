@@ -19,6 +19,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+//comentario teste pipeline
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
