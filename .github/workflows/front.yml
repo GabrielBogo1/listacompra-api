@@ -65,7 +65,8 @@ jobs:
         run: |
           ssh ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }} << 'EOF'
             cd ~/frontend
-            docker stop frontangularmensal6 || true
-            docker build -t tiuzaodagoiaba/frontmensalistico6:latest .
-            docker run -d --name frontangularmensal7 -p 80:80 -p 443:443 -v /etc/letsencrypt/live/api-mensal.shop/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro -v /etc/letsencrypt/live/api-mensal.shop/privkey.pem:/etc/nginx/ssl/privkey.pem:ro tiuzaodagoiaba/frontmensalistico6:latest 
+            docker stop frontangularmensal7 || true
+            docker rm frontangularmensal7 || true
+            docker build --no-cache -t frontend-mensal .
+            docker run -d --name frontangularmensal7 -p 80:80 -p 443:443 -v /etc/letsencrypt/live/api-mensal.shop/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro -v /etc/letsencrypt/live/api-mensal.shop/privkey.pem:/etc/nginx/ssl/privkey.pem:ro frontend-mensal 
           EOF
