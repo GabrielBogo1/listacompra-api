@@ -10,7 +10,7 @@ import { environment } from '../enviroments/enviroment.dev';
 describe('ProdutosService', () => {
   let service: ProdutosService;
   let httpMock: HttpTestingController;
-  const apiUrl = `${environment.apiUrl}/product`;
+  const API = environment.SERVIDOR + "/produto";
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,7 +41,7 @@ describe('ProdutosService', () => {
       expect(items).toEqual(mockItems);
     });
 
-    const req = httpMock.expectOne(apiUrl);
+    const req = httpMock.expectOne(API);
     expect(req.request.method).toBe('GET');
     req.flush(mockItems);
   });
@@ -53,7 +53,7 @@ describe('ProdutosService', () => {
       expect(item).toEqual(mockItem);
     });
 
-    const req = httpMock.expectOne(`${apiUrl}/1`);
+    const req = httpMock.expectOne(`${API}/1`);
     expect(req.request.method).toBe('GET');
     req.flush(mockItem);
   });
@@ -65,7 +65,7 @@ describe('ProdutosService', () => {
       expect(item).toEqual(newItem);
     });
 
-    const req = httpMock.expectOne(apiUrl);
+    const req = httpMock.expectOne(API);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(newItem);
     req.flush(newItem);
@@ -78,7 +78,7 @@ describe('ProdutosService', () => {
       expect(item).toEqual(updatedItem);
     });
 
-    const req = httpMock.expectOne(`${apiUrl}/1`);
+    const req = httpMock.expectOne(`${API}/1`);
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(updatedItem);
     req.flush(updatedItem);
@@ -89,7 +89,7 @@ describe('ProdutosService', () => {
       expect(response).toBeNull(); // Alterado de 'toBeUndefined()' para 'toBeNull()'
     });
   
-    const req = httpMock.expectOne(`${apiUrl}/1`);
+    const req = httpMock.expectOne(`${API}/1`);
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
   });
