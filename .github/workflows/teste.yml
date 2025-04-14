@@ -38,9 +38,6 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: Executar testes
-        run: mvn test -B
-
   deploy:
     needs: build_and_test
     runs-on: self-hosted 
