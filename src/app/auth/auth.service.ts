@@ -43,13 +43,9 @@ export class AuthService {
 
   addToken(token: string) {
     try {
-      const parsedToken = JSON.parse(token);
-      if (parsedToken.token) {
-        localStorage.setItem('token', parsedToken.token);
-      } else {
-        localStorage.setItem('token', token);
-      }
-    } catch (error) {
+      const parsed = JSON.parse(token);
+      localStorage.setItem('token', parsed.token || token);
+    } catch (e) {
       localStorage.setItem('token', token);
     }
   }

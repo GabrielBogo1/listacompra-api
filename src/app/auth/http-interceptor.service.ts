@@ -9,7 +9,7 @@ export const meuhttpInterceptor: HttpInterceptorFn = (request, next) => {
 
   let token = localStorage.getItem('token');
   console.log("token: " + token);
-  if (token && !router.url.includes('/login')) {
+  if (token) {
     request = request.clone({
       setHeaders: { Authorization: 'Bearer ' + token },
     });
