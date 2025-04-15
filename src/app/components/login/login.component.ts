@@ -6,6 +6,8 @@ import { User } from '../../models/user/user';
 import Swal from 'sweetalert2';
 import { environment } from '../../enviroments/enviroment.dev';
 
+// comentario teste
+
 @Component({
   selector: 'app-login',
   standalone: true,
