@@ -52,26 +52,16 @@ export class LoginComponent {
 
   autenticate() {
     this.authService.logar(this.login).subscribe({
-      next: token => { 
-        if (token) {
-          this.authService.addToken(token); 
-          this.router.navigate(['/listagem']);
-        } else {
-          Swal.fire({
-            title: "Token inválido ou não recebido!",
-            icon: 'error',
-            confirmButtonText: 'Ok'
-          });
-        }
+      next: response => {
+        if (response?.token)
+          this.authService.addToken(response.token); 
+  
+        this.router.navigate(['/listagem']);
       },
       error: erro => {
-        Swal.fire({
-          title: "Erro ao fazer login!",
-          text: erro.error ? erro.error.toString() : erro.message,
-          icon: 'error',
-          confirmButtonText: 'Ok'
-        });
-        console.error("Erro ao autenticar:", erro);
+        alert('Ocorreu um erro!');
+        console.error("! ERRO !");
+        console.error(erro);
       }
     });
   }

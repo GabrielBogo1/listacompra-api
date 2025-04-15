@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../enviroments/enviroment.dev';
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { Login } from './login';
+import { LoginResponseDTO } from '../models/user/login-response';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +27,9 @@ export class AuthService {
     return foundUser
   }
 
-  logar(login: User): Observable<string> {
-    return this.http.post<string>(`${this.API}/login`, login, {
-      headers: { 'Content-Type': 'application/json' },
-      responseType: 'text' as 'json'
+  logar(login: User): Observable<LoginResponseDTO> {
+    return this.http.post<LoginResponseDTO>(`${this.API}/login`, login, {
+      headers: { 'Content-Type': 'application/json' }
     });
   }
 
@@ -42,13 +42,13 @@ export class AuthService {
   }
 
   addToken(token: string) {
-    try {
-      const parsed = JSON.parse(token);
-      localStorage.setItem('token', parsed.token || token);
-    } catch (e) {
-      localStorage.setItem('token', token);
-    }
+  try {
+    const parsed = JSON.parse(token);
+    localStorage.setItem('token', parsed.token || token);
+  } catch (e) {
+    localStorage.setItem('token', token);
   }
+}
 
   removerToken() {
     localStorage.removeItem('token');
